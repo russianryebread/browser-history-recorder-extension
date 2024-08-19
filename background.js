@@ -3,12 +3,21 @@ function onError(e) {
   console.error(e);
 }
 
-let debounceTimeout;
-
-function debounce(func, delay) {
+let timeout;
+let lastArgs;
+function debounceUnique(func, wait = 1000) {
   return function (...args) {
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+    if (lastArgs && JSON.stringify(lastArgs) === JSON.stringify(args)) {
+      return; // Ignore identical calls
+    }
+
+    lastArgs = args; // Update lastArgs to the current arguments
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+      lastArgs = null; // Reset lastArgs after the function is called
+    }, wait);
   };
 }
 
@@ -56,6 +65,6 @@ async function recordHistory(url, title) {
 browser.webNavigation.onCompleted.addListener((details) => {
   browser.tabs.get(details.tabId).then((tab) => {
     // Prevent duplicate entries by debouncing
-    debounce(recordHistory, 300)(tab.url, tab.title);
+    debounceUnique(recordHistory, 1000)(tab.url, tab.title);
   });
 }, { url: [{ urlMatches: '^(?!about:).*' }] }); // Exclude about: pages

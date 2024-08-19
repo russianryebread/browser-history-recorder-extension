@@ -9,24 +9,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         </ul>`;
     }
 
-    document.getElementById('save').addEventListener('click', () => {
-        const userEmail = document.getElementById('email').value.trim();
-        const dbKey = document.getElementById('db_key').value.trim();
-        const dbUrl = document.getElementById('db_url').value.trim();
-        if (email && dbKey && dbUrl) {
-            const data = {
-                userEmail,
-                dbKey,
-                dbUrl
-            };
-            browser.storage.local.set(data).then(() => {
-                document.getElementById('message').textContent = 'Data saved!';
-            }).catch((error) => {
-                console.error('Error saving data:', error);
-                document.getElementById('message').textContent = 'Error saving data.';
-            });
-        } else {
-            document.getElementById('message').textContent = 'Please enter a valid email, URL, and Key.';
-        }
-    });
+    const saveEl = document.getElementById('save')
+    if (saveEl) {
+        saveEl.addEventListener('click', () => {
+            const userEmail = document.getElementById('email').value.trim();
+            const dbKey = document.getElementById('db_key').value.trim();
+            const dbUrl = document.getElementById('db_url').value.trim();
+            if (email && dbKey && dbUrl) {
+                const data = {
+                    userEmail,
+                    dbKey,
+                    dbUrl
+                };
+                browser.storage.local.set(data).then(() => {
+                    document.getElementById('message').textContent = 'Data saved!';
+                }).catch((error) => {
+                    console.error('Error saving data:', error);
+                    document.getElementById('message').textContent = 'Error saving data.';
+                });
+            } else {
+                document.getElementById('message').textContent = 'Please enter a valid email, URL, and Key.';
+            }
+        });
+    }
 });
