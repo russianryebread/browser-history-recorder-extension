@@ -55,7 +55,7 @@ async function recordHistory(url, title) {
 // Get the title of the page after it has loaded
 browser.webNavigation.onCompleted.addListener((details) => {
   browser.tabs.get(details.tabId).then((tab) => {
-    // Prevent duplicate entries by debouncing by 200ms
-    debounce(recordHistory, 200)(tab.url, tab.title);
+    // Prevent duplicate entries by debouncing
+    debounce(recordHistory, 300)(tab.url, tab.title);
   });
 }, { url: [{ urlMatches: '^(?!about:).*' }] }); // Exclude about: pages
