@@ -1,11 +1,9 @@
 {
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
-  "description": "Records history to supabase",
-  "homepage_url": "https://hoshor.me/projects/browser-history-recorder",
+  "description": "Records browser history to Supabase.",
+  "homepage_url": "https://hoshor.me/projects/browser-history-recorder/",
   "options_ui": {
     "page": "settings.html"
   },
