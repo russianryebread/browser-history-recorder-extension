@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Settings</title>
+    <style>
+        body { padding: 10px; }
+        input, textarea {width: 100%;}
+    </style>
+</head>
+
+<body>
+    <h3>Enter Required Settings</h3>
+    <label>
+        Email
+        <input type="email" id="email" placeholder="Your email" required>
+    </label>
+    <label>
+        Database URL
+        <input type="text" id="db_url" required>
+    </label>
+    <label>
+        Database Key
+        <textarea id="db_key" required></textarea>
+    </label>
+    <button id="save">Save</button>
+    <p id="message"></p>
+    <script src="settings.js"></script>
+</body>
+
+</html>
